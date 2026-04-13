@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <!--
-    Plain-Academic by Vasilios Mavroudis
-    Released under the Simplified BSD License/FreeBSD (2-clause) License.
-    https://github.com/mavroudisv/plain-academic
+    Redesigned Academic Homepage for Prof. Zhiguo Wan (万志国)
+    Responsive, modern academic style
 -->
-
-<html>
+<html lang="zh-CN">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QTF3LGDPE5"></script>
@@ -13,468 +11,1142 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-QTF3LGDPE5');
 </script>
 
-  <title>Zhiguo Wan-万志国 </title>
+  <title>万志国 (Zhiguo Wan) — 杭州师范大学</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="万志国教授，杭州师范大学数学学院，应用密码学、信息安全与隐私保护研究">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================== CSS Variables ===================== */
+    :root {
+      --navy:    #1a2540;
+      --blue:    #2b4a8c;
+      --accent:  #c0392b;
+      --gold:    #a07830;
+      --bg:      #fafaf8;
+      --surface: #ffffff;
+      --border:  #ddd8d0;
+      --text:    #2c2c2c;
+      --muted:   #6b6b6b;
+      --light:   #f4f2ee;
+      --radius:  4px;
+      --shadow:  0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    /* ===================== Reset & Base ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Source Sans 3', 'Noto Sans SC', sans-serif;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ===================== Navigation ===================== */
+    nav {
+      background: var(--navy);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.15rem;
+      color: #fff;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 0 1rem;
+      height: 56px;
+      line-height: 56px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      text-decoration: none;
+    }
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transition: all 0.3s;
+    }
+    @media (max-width: 680px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px; left: 0; right: 0;
+        background: var(--navy);
+        flex-direction: column;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { height: auto; line-height: 1; padding: 0.85rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    }
+
+    /* ===================== Layout ===================== */
+    .page-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* Profile header: sidebar left + bio right */
+    .profile-section {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 720px) {
+      .profile-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .profile-sidebar { display: flex; flex-direction: column; align-items: center; }
+    }
+
+    .profile-photo {
+      width: 200px;
+      height: 240px;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    @media (max-width: 720px) { .profile-photo { width: 160px; height: 200px; } }
+
+    .profile-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
+    }
+    .profile-title {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    @media (max-width: 720px) { .profile-links { justify-content: center; } }
+    .badge-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.28rem 0.75rem;
+      border: 1px solid var(--blue);
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      color: var(--blue);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .badge-link:hover {
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .profile-contact {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .profile-contact strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.2rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Research interests tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.8rem; }
+    @media (max-width: 720px) { .tags { justify-content: center; } }
+    .tag {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.8rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* Bio text */
+    .bio-text {
+      font-size: 0.97rem;
+      color: var(--text);
+      line-height: 1.85;
+      text-align: justify;
+    }
+    .bio-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 1.4rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; min-width: 80px; }
+    .stat-num {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ===================== Sections ===================== */
+    section { margin-bottom: 3rem; }
+    .section-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--navy);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .section-title .en {
+      font-size: 0.8rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===================== News ===================== */
+    .news-list { list-style: none; }
+    .news-list li {
+      display: flex;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.93rem;
+      align-items: flex-start;
+    }
+    .news-list li:last-child { border-bottom: none; }
+    .news-date {
+      flex-shrink: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--light);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius);
+      white-space: nowrap;
+      margin-top: 0.12rem;
+    }
+    .news-badge {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: #fdf0ee;
+      border: 1px solid #f5c6c0;
+      padding: 0.12rem 0.45rem;
+      border-radius: var(--radius);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.15rem;
+    }
+    .news-text { line-height: 1.65; }
+
+    /* ===================== Publications ===================== */
+    .pub-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .filter-btn {
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .pub-list { list-style: none; }
+    .pub-item {
+      padding: 0.9rem 0 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      font-size: 0.91rem;
+      line-height: 1.7;
+    }
+    .pub-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .pub-item:hover::before { background: var(--blue); }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-venue {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--blue);
+      background: #eef2fa;
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--radius);
+      margin-left: 0.4rem;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .pub-venue.ccf-a { color: var(--accent); background: #fdf0ee; }
+    .pub-year {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pub-me { font-weight: 700; }
+
+    /* ===================== Projects ===================== */
+    .project-grid { display: flex; flex-direction: column; gap: 0; }
+    .project-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.8rem 1rem;
+      align-items: start;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.91rem;
+    }
+    @media (max-width: 580px) {
+      .project-item { grid-template-columns: 1fr; gap: 0.2rem; }
+      .project-period { text-align: left; }
+    }
+    .project-item:last-child { border-bottom: none; }
+    .project-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding-top: 0.1rem;
+      width: 1.5rem;
+      flex-shrink: 0;
+    }
+    .project-body { line-height: 1.65; }
+    .project-body strong { color: var(--navy); }
+    .project-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.77rem;
+      color: var(--muted);
+    }
+    .project-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
+    .proj-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.05rem 0.4rem;
+      border-radius: var(--radius);
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+    .proj-tag.nsfc { background: #e8f4e8; color: #2d7a2d; border: 1px solid #b5d9b5; }
+    .proj-tag.prov { background: #e8eef8; color: #2b4a8c; border: 1px solid #b5c8e8; }
+    .proj-tag.indus { background: #fef6e8; color: #8a6020; border: 1px solid #e8d5a0; }
+    .proj-tag.lab { background: #f0eefa; color: #5a3a9a; border: 1px solid #d0c0ee; }
+    .proj-tag.pi { background: var(--light); color: var(--navy); border: 1px solid var(--border); }
+
+    /* ===================== Awards ===================== */
+    .award-group { margin-bottom: 1.5rem; }
+    .award-group-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .award-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.91rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+    }
+    .award-item:last-child { border-bottom: none; }
+    .award-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ===================== Activities ===================== */
+    .activity-role {
+      font-size: 0.91rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .activity-role:last-child { border-bottom: none; }
+    .activity-role strong { color: var(--navy); }
+    .pc-list { list-style: none; margin-top: 0.6rem; }
+    .pc-list li {
+      padding: 0.4rem 0 0.4rem 1.2rem;
+      position: relative;
+      font-size: 0.91rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .pc-list li:last-child { border-bottom: none; }
+    .pc-list li::before {
+      content: '›';
+      position: absolute; left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .pc-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-left: 0.4rem;
+    }
+
+    /* ===================== Monograph ===================== */
+    .book-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      font-size: 0.91rem;
+    }
+    .book-icon { font-size: 2rem; flex-shrink: 0; }
+
+    /* ===================== Footer ===================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); }
+    .visitor-stats { margin-top: 0.5rem; }
+
+    /* ===================== Util ===================== */
+    .show-more-btn {
+      display: block;
+      margin: 1rem auto 0;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .show-more-btn:hover { background: var(--light); color: var(--navy); }
+
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
 
+<!-- ==================== Navigation ==================== -->
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">万志国 · Zhiguo Wan</span>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">简介</a></li>
+      <li><a href="#news">动态</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#awards">获奖</a></li>
+      <li><a href="#activities">学术活动</a></li>
+      <li><a href="#publications">成果</a></li>
+      <li><a href="https://scholar.google.com/citations?user=8D7Vh20AAAAJ" target="_blank">Scholar</a></li>
+    </ul>
+  </div>
+</nav>
 
-<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-	  <div class="container">
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-		</div>
+<!-- ==================== Main Content ==================== -->
+<div class="page-wrap">
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
-				  <li><a href="index.html">Home</a></li>
-				  <li><a href="#">Projects</a></li>
-				  <li><a href="#publications">Publications</a></li> 
-				  <li><a href="#">CV</a></li> 
-		  </ul>
-		</div>
-	  </div>
-	</nav>
-  
-  <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <!-- Entries Column -->
-            <div class="col-md-8" >
-                
-                <!-- Main Image -->
-                <img class="img-responsive" src="photo.jpeg" alt=""><br>
-                
-                <div style="margin-top:3%; text-align:justify;">                
-
-	<p>
-杭州师范大学数学学院教授，本科毕业于清华大学，博士毕业于新加坡国立大学，中国计算机学会高级会员，IEEE高级会员，中国计算机学会区块链专委委员，主要研究方向为应用密码学、信息安全与隐私保护。作为项目负责人主持国家自然科学基金项目4项，以及山东省自然科学基金重大基础研究项目、面上项目和之江实验室重大研究项目、教育部留学回国人员基金项目等多项项目；作为项目骨干参与国家自然科学基金重点项目，科技部重点研发计划项目。已发表学术论文100多篇，包括ACM CCS, Eurocrypt, USENIX Security, INFOCOM，IEEE TDSC, IEEE TIFS等CCF A类国际学术会议和期刊，申请专利30余项，授权国家发明专利10余项、美国发明专利1项。Google Scholar引用次数达6000余次，单篇引用次数达700+次。出版《智能计算》专著一部，获得2022年浙江省科技进步二等奖。目前任CCF A类期刊IEEE Transactions on Dependable and Secure Computing（TDSC）和IEEE Open Journal of the Communications Society编委(Associate Editor)。	
-</p>
-					
-					
-                </div>
-            </div> 
-
-            <!-- Contact Info on the Sidebar -->
-            <div class="col-md-4">
-                <img class="img-responsive" src="profile.jpg" alt=""><br>
-                
-                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;"><b>万志国, Ph.D. </b></div><br>
-		<p>教授/PI </p>
-                <br>
-                <p>杭州师范大学<br>
-                数学学院<br>
-                浙江杭州, 311121<br>
-                </p>
+  <!-- ===== Profile ===== -->
+  <section id="about">
+    <div class="profile-section">
+      <div class="profile-sidebar">
+        <img class="profile-photo" src="profile.jpg" alt="万志国教授照片">
+        <div style="margin-top:1rem;">
+          <div class="profile-name">万志国<br><span style="font-size:1.3rem; font-weight:400; color:var(--muted);">Zhiguo Wan</span></div>
+          <div class="profile-title">教授 · 博士生导师 · PI<br>杭州师范大学 数学学院</div>
+          <div class="profile-contact">
+            <strong>联系方式</strong>
+            浙江省杭州市 311121<br>
+            数学学院
+          </div>
+          <div class="profile-links" style="margin-top:0.8rem;">
+            <a href="https://scholar.google.com/citations?user=8D7Vh20AAAAJ" target="_blank" class="badge-link">Google Scholar</a>
+            <a href="#publications" class="badge-link">Publications</a>
+            <a href="#" class="badge-link">CV</a>
+          </div>
+          <div style="margin-top:1rem;">
+            <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.4rem;">研究方向</div>
+            <div class="tags">
+              <span class="tag">应用密码学</span>
+              <span class="tag">信息安全</span>
+              <span class="tag">隐私保护</span>
+              <span class="tag">区块链</span>
+              <span class="tag">零知识证明</span>
             </div>
-
-
-            <!-- News -->
-            <div class="col-md-8" >    
-                <h2 id="projects">News</h2>
-            
-                <ol>
-		<li>
-		2026年2月28日，指导的硕士生赵玉麟的论文《ClusterGuard: Secure Clustered Aggregation for Federated Learning with Robustness》被CCF A类期刊IEEE TDSC接收！
-		</li>
-		<li>
-		2026年2月20日，参与的零知识证明方案《Spectra: Interval-Agnostic Vector Range Argument for Unstructured Range Assertions》被CCF A类会议、三大国际密码会议之一的Eurocrypt 2026接收！
-		</li>
-		<li>
-		2025年12月20日，零知识证明方案《Distributed Vector Commitments and Their Applications》被安全领域CCF A类会议、四大顶会之一的USENIX Security 2026接收!
-		</li>
-
-		<li>
-		2025年7月12日，硬件快速多标量乘方案《FusionMSM: A Collision-Free and Arithmetic-Optimized FPGA-based Accelerator for Multi-Scalar Multiplication》被硬件安全会议CHES 2025接收!
-		</li>
-		<li>
-		2025年4月25日，联邦学习隐私保护方案《OPSA: Efficient andVerifiable One-Pass Secure Aggregation with TEEfor Federated Learning》被CCF A类期刊IEEE TDSC接收!
-		</li>
-		<li>
-		2025年2月12日，区块链后量子Rollup的论文《Post-Quantum Rollup: Falcon Signature Aggregation Based on SNARG with Enhanced Gates》被CCF A类、中科院一区期刊IEEE TIFS接收!祝贺天禹和王化群老师！
-		</li>
-		<li>
-		2024年12月21日，一篇论文被CCF B类会议ICASSP 2025接收!祝贺博士生管章双！
-		</li>
-		<li>
-		2024年12月6日，两篇论文被CCF A类会议INFOCOM 2025接收!祝贺博士生管章双和杨同学及董学文老师！
-		</li>
-                </ol>
-            </div>
-
-
-            
-            <!-- Projects-->
-            <div class="col-md-8" >    
-                <h2 id="projects">Projects 研究项目</h2>
-            
-                <ol>
-		<li>
-		之江实验室揭榜挂帅项目，项目资助编号 2022PD0AC01，面向广域协同智能计算的可信关键技术研究, 2022-2023
-		</li>
-		<li>山东省自然科学基金重大基础研究项目，项目资助编号 ZR2020ZD01，区块链安全与隐私关键技术, 2021-2023
-		<li> 
-		国家自然科学基金 (NSFC) 面上项目，项目资助编号 62272425，异构多链系统的隐私保护与监管研究, 2023-2026
-		</li>
-		<li> 
-		国家自然科学基金 (NSFC) 面上项目，项目资助编号 61972229，面向大规模物联网系统的分层区块链架构与安全, 2020-2023
-		</li>
-		<li> 
-		国家自然科学基金 (NSFC) 面上项目，项目资助编号 61370027，基于压缩网络编码的无线传感器网络安全与隐私, 2014-2017
-		</li>
-		<li> 
-		国家自然科学基金 (NSFC) 青年项目，项目资助编号 61003223，基于网络编码的无线传感器网络隐私保护, 2011-2013
-		</li>
-		<li> 
-		之江实验室 PI 启动项目，项目资助编号 2021PI2104，区块链隐私与监管技术, 2021-2022
-		</li>
-		<li> 
-		山东省自然科学基金，区块链智能合约的安全与隐私保护, 2019-2021
-		</li>
-		<li> 
-		山东大学跨学科研究项目，面向智能电网中的多微电网的安全可扩展区块链, 2018-2020
-		</li>
-		<li> 
-		华为创新研究项目，面向物联网的高可扩展区块链设计与实现, 2018
-		</li>
-		<li> 
-		国家自然科学基金 (NSFC)，项目资助编号 61128005，共同负责人，MCMR 无线网络的网络容量最大化, 2012-2013
-		</li>
-		<li> 
-		清华大学国家实验室，智能电网高级量测基础设施的关键管理机制, 2013-2014
-		</li>
-		<li> 
-		国家重点实验室，智能电网高级量测基础设施的安全方案, 2013-2014
-		</li>
-		<li> 
-		清华-鲁汶大学双边合作项目，在线社交网络的隐私保护, 2011-2013
-		</li>
-		<li>
-		海外归国学者启动项目，无线网络的隐私保护, 2010-2012
-		</li>
-                </ol>
-            </div>
-
-            <div class="col-md-4">
-		<p> <br>研究领域</br></p>
-		<p> 应用密码学 </p>
-		<p> 信息安全/隐私保护 </p>
-		<p> 区块链与密码货币 </p>
-            </div>
-            
-            <!-- Links on the Sidebar -->
-            <div class="col-md-4" style="margin-top:2%">
-              <dd><a href="https://scholar.google.com/citations?user=8D7Vh20AAAAJ">Google Scholar</a></dd> 
-            </div>
-            
-            <!-- awards -->
-            <div class="col-md-8" >    
-                <h2 id="awards">Awards 获奖</h2>
-                
-                <strong>科技奖</strong><br/>
-                <ul>
-                <li class="paper" words="award, intelligent computing"><a href="#">浙江省科技进步二等奖《聚合异构算力的智能计算系统》</a> 排名第二, 2022年度</li>
-                </ul>
-            
-                <strong>最佳论文</strong><br/>
-                <ul>
-                <li class="paper" words="award, intelligent computing"><a href="#">IEEE 杰出论文奖 (IEEE TrustCom)</a>, An Efficient and Secure Scheme of Verifiable Computation for Intel SGX, 2022 </li>
-                <li class="paper" words="award, intelligent computing"><a href="#">最佳论文奖 (Elsevier High-Confidence Computing)</a>, When blockchain meets smart grids: A comprehensive survey, 2022 </li>
-
-
-                </ul>
-            
-            </div>
-
-            <!-- Professional activities-->
-            <div class="col-md-8" >    
-                <h2 id="activity">Activities 专业活动</h2>
-                
-                <strong>IEEE Transactions on Dependable and Secure Computing(TDSC)</strong>, 编委<br/>
-                <strong>IEEE通信学会开放期刊(OJ-COMS)</strong>, 编委<br/>
-                <strong>程序委员会成员：</strong><br/>
-                <ul>
-                <li>IEEE国际计算机通信会议INFOCOM，2016-2026</li>
-                <li>AAAI Conference on Artificial Intelligence，2026</li>
-                <li>IEEE国际通信会议ICC，2009-2014</li>
-                <li>IEEE国际计算机通信网络会议ICCCN，2008-2010</li>
-                <li>国际并行与分布式系统会议ICPADS，2009</li>
-                <li>IEEE全球通信会议GlobeCom，2010-2013</li>
-                <li>信息安全实践与经验会议ISPEC，2010-2011</li>
-                </ul>
-            
-            
-            </div>
-            
-            <!-- Publications -->
-            <div class="col-md-8" >    
-                <h2 id="publications">Publications 研究成果</h2>
-                
-                <strong>专著</strong><br/>
-                <ul>
-                <li class="paper" words="add, your, keywords, here"><a href="#">《智能计算》</a> 朱世强、万志国，ISBN: 978-7-308-22904-3，浙江大学出版社，2022.11 </li>
-                </ul>
-            
-                <strong>学术论文</strong><br/>
-                <ol>
-                <li class="paper" words="award, paper">  
-		Y. Zhao, Z. Guan, <b><u>Zhiguo Wan</u></b> et al., “ClusterGuard: Secure Clustered Aggregation for Federated Learning with Robustness,” Accepted to IEEE TDSC, 2026.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Gao, Q. Wu, B. Qin, F. Wu, Z. Ding, and <b><u>Zhiguo Wan</u></b>, “Spectra: Interval-Agnostic Vector Range Argument for Unstructured Range Assertions,” Accepted to Eurocrypt, 2026.
-		</li>
-                <li class="paper" words="award, paper">  
-		R. Gao, H. Wang, <b><u>Zhiguo Wan</u></b>, and Y. Hu,“Distributed Vector Commitments and Their Applications,” Accepted to USENIX Security, 2026.
-		</li>
-
-                <li class="paper" words="award, paper">  
-		C. Chen, G. Yang*, H. Zhou, H. Xiong, X. Ben, and <b><u>Zhiguo Wan</u></b>, “FusionMSM: A Collision-Free and Arithmetic-Optimized FPGA-based Accelerator for Multi-Scalar Multiplication,” Accepted to CHES, 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		Z. Guan, Y. Zhao, <b><u>Zhiguo Wan</u></b>*, and J. Han, “OPSA: Efficient andVerifiable One-Pass Secure Aggregation with TEEfor Federated Learning,” Accepted to IEEE TDSC (CCF A), 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		T. Zhaolu, <b><u>Zhiguo Wan</u></b>*, and H. Wang, “Post-Quantum Rollup: Falcon Signature Aggregation Based on SNARG with Enhanced Gates,” Accepted to IEEE TIFS (CCF A,中科院一区), 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		Z. Guan, Y. Zhao, <b><u>Zhiguo Wan</u></b>*, and W. Wang, “Input Integrity and Authentic Results: Towards Trustworthy Aggregation in Federated Learning,” to appear in IEEE INFOCOM (CCF A, 通讯领域顶会), 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		L. Yang, X. Dong, <b><u>Zhiguo Wan</u></b>, S. Gao, W. Tong, D. Lu, Y. Shen, and X. Du, “AsyncSC: An Asynchronous Sidechain for Multi-Domain Data Exchange in Internet of Things”, to appear in IEEE INFOCOM (CCF A, 通讯领域顶会), 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		W. Li, Z. Zhang, Y. Guo, S. S. M. Chow, <b><u>Zhiguo Wan</u></b>, “Succinct Hash-Based Arbitrary-Range Proofs,” IEEE Transactions on Information Forensics and Security (CCF A, Impact Factor: 6.8), vol. 20, pages 145-158, 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		Z. Guan, Y. Zhao, L. Yang, <b><u>Zhiguo Wan∗</u></b>, and J. Han, “Communication-efficient Verifiable and Oblivious Aggregation with Client Dropouts”, to appear in ICASSP, 2025.
-		</li>
-                <li class="paper" words="award, paper">  
-		R. Gao, <b><u>Zhiguo Wan</u></b>*, Y. Hu*, and H. Wang*, “A Succinct Range Proof for Polynomial-based Vector Commitment,” in Proc. ACM CCS (CCF A, 安全领域顶会), 3125-3166, 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		Y. Hao, X. Chen, X. Lyu, J. Liu, Y. Zhu, <b><u>Zhiguo Wan</u></b>, S. Mauw, and W. Wang, “Not One Less: Exploring Interplay between User Profiles and Items in Untargeted Attacks against Federated Recommendation,” in Proc. ACM CCS (CCF A, 安全领域顶会), 2889-2903, 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		Puning Zhao and <b><u>Zhiguo Wan</u></b>∗, “Robust nonparametric regression under poisoning attack,” in Proceedings of the AAAI Conference on Artificial Intelligence (CCF A), pages 17007–17015, 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		Puning Zhao, Fei Yu, and <b><u>Zhiguo Wan</u></b>∗, “A Huber Loss Minimization Approach to Byzantine Robust Federated Learning,” in Proceedings of the AAAI Conference on Artificial Intelligence (CCF A), pages 21806–21814, 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		T. Zhaolu, <b><u>Zhiguo Wan</u></b>∗, and H. Wang∗, “Division of regulatory power: Collaborative regulation for privacy-preserving blockchains,” IEEE Transactions on Information Forensics and Security (CCF A, Impact Factor: 6.8), 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		A. Zhang, W. Jia, <b><u>Zhiguo Wan</u></b>, W. Hua, and Z. Zhao, “Virtual lighting environment and real human fusion based on multiview videos,” Information Fusion (中科院一区, Impact Factor: 18.6), 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		S. Yuan, B. Cao, Y. Sun, <b><u>Zhiguo Wan</u></b>, and M. Peng, “Secure and efficient federated learning through layering and sharding blockchain,” IEEE Transactions on Network Science and Engineering (Impact Factor: 6.6), 2024.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Y. Zhou and K. Ren, zk-AuthFeed: Protecting Data Feed to Smart Contracts with Authenticated Zero Knowledge Proof, IEEE Trans. Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, W. Liu, and H. Cui∗, HIBEChain: A Hierarchical Identity-based Blockchain System for Large-Scale IoT, IEEE Trans. Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		W. Liu, <b><u>Zhiguo Wan</u></b>∗, J. Shao, and Y. Yu, “HyperMaze: Towards Privacy-Preserving and Scalable Permissioned Blockchain, IEEE Trans. Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Cui, <b><u>Zhiguo Wan</u></b>∗, R. Gao, and H. Wang, “Outsourced Privately Verifiable Proofs of Retrievability Via Blockchain,” IEEE Trans. on Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Wang, <b><u>Zhiguo Wan</u></b>∗, D. He, and J. Yu, Synchronous Blockchain-Based Distributed Provable Data Possession With Forward-Security, IEEE Trans. on Services Computing (CCF A, Impact Factor: 8.1), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		X. Zheng, C. Tang, <b><u>Zhiguo Wan</u></b>, C. Hu, and W. Zhang, “Multi-level confidence learning for trustworthy multimodal classification,” in Proceedings of the AAAI Conference on Artificial Intelligence (CCF A), Vol. 37. No. 9. 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		L. Wang, W. Ding, Z. Yan, S. Qiu, M. Wang, and <b><u>Zhiguo Wan</u></b>, “EDDAC: An Efficient and Decentralized Data Access Control Scheme With Attribute Privacy Preservation,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		Y. Cai, W. Ding, Y. Xiao, Z. Yan, X. Liu, and <b><u>Zhiguo Wan</u></b>, “SecFed: A Secure and Efficient Federated Learning Based on Multi-Key Homomorphic Encryption,” IEEE Transactions on Dependable and Secure Computing(CCF A, Impact Factor: 7.3), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		S. Zeng, B. Cao, Y. Sun, C. Sun, <b><u>Zhiguo Wan</u></b>, and M. Peng, “Blockchain-Assisted Cross-Domain Data Sharing in Industrial IoT,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		Z. Li, C. Tang, X. Zheng, <b><u>Zhiguo Wan</u></b>, et al. “Mutual structure learning for multiple kernel clustering,” Information Sciences (中科院一区, Impact Factor: 8.1), vol. 647: 119445, 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		M. Yang, H. Wang, and <b><u>Zhiguo Wan</u></b>, “PUL-ABE: An Efficient and Quantum-resistant CP-ABE with Policy Update in Cloud Storage,” IEEE Transactions on Services Computing (CCF A, Impact Factor: 8.1), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		J. Han, B. Cheng, <b><u>Zhiguo Wan</u></b>, and W. Lu, “Towards Hard Few-Shot Relation Classification,” IEEE Transactions on Knowledge and Data Engineering (CCF A, Impact Factor: 8.9), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		Y. Liu, J. Wang, Z. Yan, <b><u>Zhiguo Wan</u></b>, and R. Jantti, “A survey on blockchain-based trust management for Internet of Things,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		G. Gong, Z. Shen, L. Chen, S. Wu, X. Li, P. PC Lee, <b><u>Zhiguo Wan</u></b>, and J. Shu, “Optimal Rack-Coordinated Updates in Erasure-Coded Data Centers: Design and Analysis,” IEEE Transactions on Computers (CCF A, Impact Factor: 3.7), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		D. Liu, Z. Yan, W. Ding, Y. Cai, Y. Chen, and <b><u>Zhiguo Wan</u></b>, “ESMAC: Efficient and secure multi-owner access control with TEE in multi-level data processing,” IEEE Transactions on Dependable and Secure Computing (CCF A, Impact Factor: 7.3), vol. 20, no. 5, 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Cui, <b><u>Zhiguo Wan</u></b>, T. Zhaolu, H. Wang, and A. Miyaji, “Pay-per-Proof: Decentralized Outsourced Multi-User PoR for Cloud Storage Payment Using Blockchain,” IEEE Transactions on Cloud Computing (Impact Factor: 6.5), 2023.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, T. Zhang, W. Liu, M. Wang, and L. Zhu, “Decentralized Privacy-Preserving Fair Exchange Scheme for V2G Based on Blockchain,” IEEE Trans. Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2022.
-		</li>
-                <li class="paper" words="award, paper">  
-		Z. Guan, <b><u>Zhiguo Wan</u></b>∗, Y. Yang, Y. Zhou, and B. Huang, “BlockMaze: An Efficient Privacy-Preserving Account-Model Blockchain Based on zk-SNARKs,” IEEE Trans. Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2022.
-		</li>
-
-                <li class="paper" words="award, paper">  
-Y. Guo, <b><u>Zhiguo Wan</u></b>*, H. Cui, X. Cheng, and F. Dressler, "Vehicloak: A blockchain-enabled privacy-preserving payment scheme for location-based vehicular services," IEEE Transactions on Mobile Computing (CCF A), 22(11): 6830-6842, 2022.
-		</li>
-                <li class="paper" words="award, paper">  
-		T. Xu, T. Qiu, D. Hu, C. Mu, <b><u>Zhiguo Wan</u></b> and et al. “A Scalable Two-layer Blockchain System for Distributed Multi-cloud Storage in IIoT,” IEEE Transactions on Industrial Informatics (中科院一区, Impact Factor: 12.3), 2022.
-		</li>
-                <li class="paper" words="award, paper">  
-		T. Li, Y. Fang, Y. Lu, J. Yang, Z. Jian, <b><u>Zhiguo Wan</u></b>, and Y. Li, “SmartVM: A Smart Contract Virtual Machine for Fast on-Chain DNN Computations,” IEEE Transactions on Parallel and Distributed Systems (CCF A, Impact Factor: 5.3), 2022.
-		</li>
-                <li class="paper" words="award, paper">  
-		Y. Fan, T. Qiu, L. Zhang, T. Xu, W. Liu, X. Zhou, and <b><u>Zhiguo Wan</u></b>, “DLBN: Group Storage Mechanism Based on Double Layer Blockchain Network,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), 2022.
-		</li>
-                <li class="paper" words="award, paper">  
-		Y. Yang, Z. Guan, <b><u>Zhiguo Wan</u></b>∗, J. Weng, HH Pang and R. Deng, “PriScore: blockchain-based self-tallying election system supporting score voting,” IEEE Trans. Information Forensics and Security (CCF A, Impact Factor: 6.8), vol. 16, pages 4705-4720, 2021.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Qi, <b><u>Zhiguo Wan</u></b>∗, Z. Guan and X. Cheng, “Scalable Decentralized Privacy-Preserving Usage-based Insurance for Vehicles,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), vol. 8, no. 6, 2020.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Cui, <b><u>Zhiguo Wan</u></b>∗, X. Wei, S. Nepal and X. Yi, “Pay as You Decrypt: Decryption Outsourcing for Functional Encryption Using Blockchain,” IEEE Trans. Information Forensics and Security (CCF A, Impact Factor: 6.8), vol. 15, 2020.
-		</li>
-                <li class="paper" words="award, paper">  
-		S. Liu, J. Yu, Y. Xiao, <b><u>Zhiguo Wan</u></b>, S. Wang and B. Yan, “BC-SABE: Blockchain-aided Searchable Attribute-based Encryption for Cloud-IoT,” IEEE Internet of Things Journal (中科院一区, Impact Factor: 10.6), vol. 7, no. 9, 2020.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Robert H. Deng, David Lee and Ying Li, “MicroBTC: Efficient, Flexible and Fair Micropayment for Bitcoin Using Hash Chains,” Journal of Computer Science and Technology(CCF B, Impact Factor: 1.9), vol. 34, no. 2, 2019.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗ and Robert H. Deng, “VPSearch: Achieving Verifiability for Privacy-Preserving Multi-Keyword Search over Encrypted Cloud Data,” IEEE Transactions on Dependable and Secure Computing (CCF A, Impact Factor: 7.3), 2018.
-		</li>
-                <li class="paper" words="award, paper">  
-		F. Gao, L. Zhu, M. Shen, K. Sharif, <b><u>Zhiguo Wan</u></b>, K. Ren, “A Blockchain-Based Privacy-Preserving Payment Mechanism for Vehicle-to-Grid Networks,” IEEE Network (中科院一区, Impact Factor: 9.3), 2018.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Cui, <b><u>Zhiguo Wan</u></b>, R. Deng, G. Wang, Y. Li, “Efficient and Expressive Keyword Search Over Encrypted Data in the Cloud,” IEEE Transactions on Dependable and Secure Computing (CCF A, Impact Factor: 7.3), vol. 15, no. 3, Pages: 409-422, 2018.
-		</li>
-                <li class="paper" words="award, paper">  
-		Yizhen Jia, Yinhao Xiao, Jiguo Yu, Xiuzhen Cheng, Zhenkai Liang and <b><u>Zhiguo Wan</u></b>, “A Novel Graph-based Mechanism for Identifying Traffic Vulnerabilities in Smart Home IoT,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), 2018.
-		</li>
-                <li class="paper" words="award, paper">  
-		H. Ma, R. Zhang, <b><u>Zhiguo Wan</u></b>, Y. Lu, and S. Lin, “Verifiable and Exculpable Outsourced Attribute-Based Encryption for Access Control in Cloud Computing,” IEEE Transactions on Dependable and Secure Computing (CCF A, Impact Factor: 7.3), vol. 14, no. 6, Pages: 679-692, 2017.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, W. T. Zhu, G. Wang, “PRAC: Efficient privacy protection for vehicle-to-grid communications in the smart grid,” Computers & Security (CCF B, Impact Factor: 2.65) 62: 246-256, 2016.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Guilin Wang, Yanjiang Yang, and Shenxing Shi, “SKM: Scalable Key Management for Advanced Metering Infrastructure in Smart Grids,” IEEE Transactions on Industrial Electronics (中科院一区, Impact Factor: 7.7), vol. 61, no. 12 Pages: 7055-7066, 2014.
-		</li>
-                <li class="paper" words="award, paper">  
-		Peng-Jun Wan, Zhu Wang, Lei Wang, <b><u>Zhiguo Wan</u></b>, Sai Ji, “From least interference-cost paths to maximum (Concurrent) multiflow in MC-MR wireless networks,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), pages 334-342, 2014.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Jun’e Liu, Rui Zhang, and Robert Deng, “A Collusion-Resistant Conditional Access System for Flexible-Pay-Per-Channel Pay-TV Broadcasting,” IEEE Trans. Multimedia (CCF B, Impact Factor: 7.3), vol. 15, no. 6, 2013.
-		</li>
-                <li class="paper" words="award, paper">  
-		Peng-Jun Wan, <b><u>Zhiguo Wan</u></b>, Zhu Wang, Xiaohua Xu, Shaojie Tang, Xiaohua Jia, “Stability Analyses of Static Greedy Link Schedulings in MC-MR Wireless Networks,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), 2013.
-		</li>
-                <li class="paper" words="award, paper">  
-		Kai Xing, <b><u>Zhiguo Wan</u></b>, Pengfei Hu, Haojin Zhu, Yuepeng Wang, Xi Chen, Yang Wang, Liusheng Huang, “Mutual Privacy-Preserving Regression Modeling in Participatory Sensing,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), 2013.
-		</li>
-                <li class="paper" words="award, paper">  
-		Taeho Jung, Xiang-Yang Li, <b><u>Zhiguo Wan</u></b>, Meng Wan, “Privacy Preserving Cloud Data Access With Multi-Authorities,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), 2013.
-		</li>
-                <li class="paper" words="award, paper">  
-		Peng-Jun Wan, Xiaohua Jia, Guo-Jun Dai, Hongwei Du, <b><u>Zhiguo Wan</u></b>, Ophir Frieder, “Scalable Algorithms for Wireless Link Schedulings in Multi-Channel Multi-Radio Wireless Networks,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), 2013.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, Kai Xing, Yunhao Liu, “Priv-Code: Preserving Privacy Against Traffic Analysis through Network Coding for Multihop Wireless Networks,” in Proceedings of IEEE Conference on Computer Communications (INFOCOM, CCF A), pages 73-81, 2012.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Kui Ren, and Ming Gu, “USOR: An Unobservable Secure On-Demand Routing Protocol for Ad hoc Networks,” IEEE Trans. Wireless Communications (中科院一区, Impact Factor: 10.4), vol. 11, no. 5, Pages 1922-1932, 2012.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Jun’e Liu, and Robert Deng, “HASBE: A Hierarchical Attribute-Based Solution for Flexible and Scalable Access Control in Cloud Computing,” IEEE Trans. on Information Forensics and Security (CCF A, Impact Factor: 6.8), vol. 7, no. 2, Pages 743-754, 2012.
-		</li>
-                <li class="paper" words="award, paper">  
-		Peng-Jun Wan, XiaoHua Xu, Zhu Wang, ShaoJie Tang, <b><u>Zhiguo Wan</u></b>, “Stability analyses of longest-queue-first link scheduling in MC-MR wireless networks,” in Proceedings of MobiHoc, pages 45-54, 2012.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Kui Ren, Bo Zhu, Bart Preneel, Ming Gu, “Anonymous User Communication for Privacy Protection in Wireless Metropolitan Mesh Networks,” IEEE Trans. Vehicular Technology, vol. 59, no. 2, Pages 519-532, February 2010.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Robert Deng, Feng Bao, Bart Preneel, Ming Gu, “nPAKE+: A Tree-Based Group Password-Authenticated Key Exchange Protocol Using Different Passwords,” Journal of Computer Science Technology (CCF B, Impact Factor: 1.9), vol. 24, no. 1, pages 138-151, January 2009.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, Kui Ren, Bo Zhu, Bart Preneel, and Ming Gu, “Anonymous User Communication for Privacy Protection in Wireless Metropolitan Mesh Networks,” in Proceedings of AsiaCCS, 10-12 March 2009, Sydney, Australia 2009.
-		</li>
-                <li class="paper" words="award, paper">  
-		Jin Li, Kui Ren, Bo Zhu, <b><u>Zhiguo Wan</u></b>, “Privacy-Aware Attribute-Based Encryption with User Accountability,” in Proceedings of ISC, pages 347-362, 2009.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, Kui Ren, Bart Preneel, “A Secure Privacy-Preserving Roaming Protocol Based on Hierarchical Identity-Based Encryption for Mobile Networks,” in Proceedings of ACM Conference on Wireless Network Security (WiSec), 2008.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Robert H. Deng, Feng Bao, Akkihebbal L. Ananda, “Access Control Protocols with Two-layer Architecture for Wireless Networks,” Computer Networks (CCF B, Impact Factor: 5.6), vol. 51, no. 3, Pages: 655-670, February 2007.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>∗, Feng Bao, Robert H. Deng, Akkihebbal L. Ananda, “Security Analysis on a Conference Scheme for Mobile Communications,” IEEE Trans. Wireless Communications (中科院一区, Impact Factor: 10.4), vol. 5, no. 6, Page(s): 1238-1240, June 2006.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b>, Robert H. Deng, Feng Bao and Akkihebbal L. Ananda, “Anonymous DoS-Resistant Access Control Protocol Using Passwords for Wireless Networks,” in Proceedings of IEEE Conference on Local Computer Networks (LCN), pages 328-335, Sydney, 15-17 November, 2005.
-		</li>
-                <li class="paper" words="award, paper">  
-		<b><u>Zhiguo Wan</u></b> and Shuhong Wang, “Cryptanalysis of Two Password-Authenticated Key Exchange Protocols,” in Proceedings of 9th Australasian Conference on Information Security and Privacy, pages 164-175, July 13-15,2004, Sydney, Australia. 2004.
-		</li>
-                <li class="paper" words="award, paper">  
-		Bo Zhu, <b><u>Zhiguo Wan</u></b>, Mohan S. Kankanhalli, Feng Bao, Robert H. Deng, “Anonymous Secure Routing in Mobile Ad-Hoc Networks,” in Proceedings of 29th Annual IEEE Conference on Local Computer Networks (LCN), Tampa, Florida, U.S.A., 2004.
-		</li>
-                <li class="paper" words="award, paper">  
-		Kui Ren, Tieyan Li, <b><u>Zhiguo Wan</u></b>, Feng Bao, Robert H. Deng and Kwangjo Kim, “Highly Reliable Trust Establishment Scheme in Mobile Ad hoc Networks,” Computer Networks (Elsevier) (CCF B, Impact Factor: 5.6), vol. 45, no. 6, pages 687-699, August 2004.
-		</li>
-
-
-                </ol>
-
-            
-            </div>
-
-            
+          </div>
         </div>
+      </div>
 
+      <div class="profile-bio">
+        <p class="bio-text">
+          万志国，杭州师范大学数学学院教授、博士生导师，本科毕业于清华大学，博士毕业于新加坡国立大学。中国计算机学会（CCF）高级会员、IEEE高级会员、CCF区块链专业委员会委员。主要研究方向为<strong>应用密码学、信息安全与隐私保护</strong>，在零知识证明、区块链隐私与监管、联邦学习安全等方向取得了系列重要成果。
+        </p>
+        <p class="bio-text" style="margin-top:0.8rem;">
+          作为项目负责人，主持国家自然科学基金项目4项，以及山东省自然科学基金重大基础研究项目、之江实验室重大研究项目、教育部留学回国人员基金项目等多项省部级及横向项目；作为骨干成员参与国家自然科学基金重点项目、科技部重点研发计划项目。
+        </p>
+        <p class="bio-text" style="margin-top:0.8rem;">
+          已发表学术论文逾100篇，发表于 ACM CCS、Eurocrypt、USENIX Security、IEEE INFOCOM、IEEE TDSC、IEEE TIFS 等 CCF A 类顶级学术会议与期刊。申请专利30余项，授权国家发明专利10余项、美国发明专利1项。出版专著《智能计算》，荣获<strong>2022年度浙江省科技进步二等奖</strong>。
+        </p>
+        <p class="bio-text" style="margin-top:0.8rem;">
+          现任 <em>IEEE Transactions on Dependable and Secure Computing</em>（TDSC，CCF A类）及 <em>IEEE Open Journal of the Communications Society</em> 编委（Associate Editor）。
+        </p>
+
+        <div class="bio-stats">
+          <div class="stat-item">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">学术论文</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">6000+</div>
+            <div class="stat-label">Google Scholar 引用</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">700+</div>
+            <div class="stat-label">单篇最高引用</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4</div>
+            <div class="stat-label">国家自然科学基金（主持）</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">专利申请</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== News ===== -->
+  <section id="news">
+    <h2 class="section-title">最新动态 <span class="en">News</span></h2>
+    <ul class="news-list">
+      <li>
+        <span class="news-date">2026-02-28</span>
+        <span class="news-badge">IEEE TDSC</span>
+        <span class="news-text">指导硕士生赵玉麟的论文 <em>ClusterGuard: Secure Clustered Aggregation for Federated Learning with Robustness</em> 被 CCF A 类期刊 IEEE TDSC 接收。</span>
+      </li>
+      <li>
+        <span class="news-date">2026-02-20</span>
+        <span class="news-badge">Eurocrypt</span>
+        <span class="news-text">参与的零知识证明研究 <em>Spectra: Interval-Agnostic Vector Range Argument for Unstructured Range Assertions</em> 被国际三大密码会议之一 Eurocrypt 2026 接收。</span>
+      </li>
+      <li>
+        <span class="news-date">2025-12-20</span>
+        <span class="news-badge">USENIX Sec.</span>
+        <span class="news-text">研究工作 <em>Distributed Vector Commitments and Their Applications</em> 被安全领域顶级会议 USENIX Security 2026 接收。</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects">
+    <h2 class="section-title">主持科研项目 <span class="en">Research Projects</span></h2>
+    <div class="project-grid">
+
+      <div class="project-item">
+        <span class="project-num">1</span>
+        <div class="project-body">
+          <span class="proj-tag lab">之江实验室</span>
+          <strong>面向广域协同智能计算的可信关键技术研究</strong>
+          <div class="project-id">揭榜挂帅项目 · 编号 2022PD0AC01</div>
+        </div>
+        <span class="project-period">2022–2023</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">2</span>
+        <div class="project-body">
+          <span class="proj-tag prov">省基金</span>
+          <strong>区块链安全与隐私关键技术</strong>
+          <div class="project-id">山东省自然科学基金重大基础研究项目 · 编号 ZR2020ZD01</div>
+        </div>
+        <span class="project-period">2021–2023</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">3</span>
+        <div class="project-body">
+          <span class="proj-tag nsfc">国家自然科学基金</span>
+          <strong>异构多链系统的隐私保护与监管研究</strong>
+          <div class="project-id">面上项目 · 编号 62272425</div>
+        </div>
+        <span class="project-period">2023–2026</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">4</span>
+        <div class="project-body">
+          <span class="proj-tag nsfc">国家自然科学基金</span>
+          <strong>面向大规模物联网系统的分层区块链架构与安全</strong>
+          <div class="project-id">面上项目 · 编号 61972229</div>
+        </div>
+        <span class="project-period">2020–2023</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">5</span>
+        <div class="project-body">
+          <span class="proj-tag nsfc">国家自然科学基金</span>
+          <strong>基于压缩网络编码的无线传感器网络安全与隐私</strong>
+          <div class="project-id">面上项目 · 编号 61370027</div>
+        </div>
+        <span class="project-period">2014–2017</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">6</span>
+        <div class="project-body">
+          <span class="proj-tag nsfc">国家自然科学基金</span>
+          <strong>基于网络编码的无线传感器网络隐私保护</strong>
+          <div class="project-id">青年项目 · 编号 61003223</div>
+        </div>
+        <span class="project-period">2011–2013</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">7</span>
+        <div class="project-body">
+          <span class="proj-tag lab">之江实验室</span>
+          <strong>区块链隐私与监管技术</strong>
+          <div class="project-id">PI 启动项目 · 编号 2021PI2104</div>
+        </div>
+        <span class="project-period">2021–2022</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">8</span>
+        <div class="project-body">
+          <span class="proj-tag prov">省基金</span>
+          <strong>区块链智能合约的安全与隐私保护</strong>
+          <div class="project-id">山东省自然科学基金</div>
+        </div>
+        <span class="project-period">2019–2021</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">9</span>
+        <div class="project-body">
+          <span class="proj-tag indus">产学研</span>
+          <strong>面向物联网的高可扩展区块链设计与实现</strong>
+          <div class="project-id">华为创新研究项目</div>
+        </div>
+        <span class="project-period">2018</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">10</span>
+        <div class="project-body">
+          <span class="proj-tag indus">校级</span>
+          <strong>面向智能电网中的多微电网的安全可扩展区块链</strong>
+          <div class="project-id">山东大学跨学科研究项目</div>
+        </div>
+        <span class="project-period">2018–2020</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">11</span>
+        <div class="project-body">
+          <span class="proj-tag nsfc">国家自然科学基金</span>
+          <strong>MCMR 无线网络的网络容量最大化</strong>（共同负责人）
+          <div class="project-id">编号 61128005</div>
+        </div>
+        <span class="project-period">2012–2013</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">12</span>
+        <div class="project-body">
+          <span class="proj-tag lab">国家实验室</span>
+          <strong>智能电网高级量测基础设施的关键管理机制</strong>
+          <div class="project-id">清华大学国家实验室 / 国家重点实验室</div>
+        </div>
+        <span class="project-period">2013–2014</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">13</span>
+        <div class="project-body">
+          <span class="proj-tag prov">国际合作</span>
+          <strong>在线社交网络的隐私保护</strong>
+          <div class="project-id">清华–鲁汶大学双边合作项目</div>
+        </div>
+        <span class="project-period">2011–2013</span>
+      </div>
+
+      <div class="project-item">
+        <span class="project-num">14</span>
+        <div class="project-body">
+          <span class="proj-tag pi">启动项目</span>
+          <strong>无线网络的隐私保护</strong>
+          <div class="project-id">海外归国学者启动项目</div>
+        </div>
+        <span class="project-period">2010–2012</span>
+      </div>
 
     </div>
-    <!-- /.container -->
-    
-    <!-- Other people may like it too! -->
-    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
-    
-</body>
+  </section>
+
+  <!-- ===== Awards ===== -->
+  <section id="awards">
+    <h2 class="section-title">荣誉与奖励 <span class="en">Awards & Honors</span></h2>
+
+    <div class="award-group">
+      <div class="award-group-title">▸ 科技奖励</div>
+      <div class="award-item">
+        <span class="award-icon">🏆</span>
+        <div>
+          <strong>浙江省科技进步二等奖</strong>（排名第二）<br>
+          <span style="color:var(--muted);font-size:0.88rem;">《聚合异构算力的智能计算系统》，2022 年度</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="award-group">
+      <div class="award-group-title">▸ 最佳论文奖</div>
+      <div class="award-item">
+        <span class="award-icon">📄</span>
+        <div>
+          <strong>IEEE 杰出论文奖</strong>（IEEE TrustCom 2022）<br>
+          <span style="color:var(--muted);font-size:0.88rem;"><em>An Efficient and Secure Scheme of Verifiable Computation for Intel SGX</em></span>
+        </div>
+      </div>
+      <div class="award-item">
+        <span class="award-icon">📄</span>
+        <div>
+          <strong>最佳论文奖</strong>（Elsevier High-Confidence Computing, 2022）<br>
+          <span style="color:var(--muted);font-size:0.88rem;"><em>When blockchain meets smart grids: A comprehensive survey</em></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Activities ===== -->
+  <section id="activities">
+    <h2 class="section-title">学术服务 <span class="en">Professional Activities</span></h2>
+
+    <div style="margin-bottom:1.2rem;">
+      <div style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.6rem;">▸ 期刊编委（Associate Editor）</div>
+      <div class="activity-role"><strong>IEEE Transactions on Dependable and Secure Computing (TDSC)</strong>，CCF A 类期刊，编委</div>
+      <div class="activity-role"><strong>IEEE Open Journal of the Communications Society (OJ-COMS)</strong>，编委</div>
+    </div>
+
+    <div>
+      <div style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.6rem;">▸ 程序委员会成员（TPC Member）</div>
+      <ul class="pc-list">
+        <li>IEEE 国际计算机通信会议 <strong>INFOCOM</strong><span class="pc-year">2016–2026</span></li>
+        <li>AAAI Conference on Artificial Intelligence <strong>AAAI</strong><span class="pc-year">2026</span></li>
+        <li>IEEE 国际通信会议 <strong>ICC</strong><span class="pc-year">2009–2014</span></li>
+        <li>IEEE 国际计算机通信网络会议 <strong>ICCCN</strong><span class="pc-year">2008–2010</span></li>
+        <li>国际并行与分布式系统会议 <strong>ICPADS</strong><span class="pc-year">2009</span></li>
+        <li>IEEE 全球通信会议 <strong>GlobeCom</strong><span class="pc-year">2010–2013</span></li>
+        <li>信息安全实践与经验会议 <strong>ISPEC</strong><span class="pc-year">2010–2011</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Publications ===== -->
+  <section id="publications">
+    <h2 class="section-title">研究成果 <span class="en">Publications</span></h2>
+
+    <!-- Monograph -->
+    <div style="margin-bottom:1.6rem;">
+      <div style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.6rem;">▸ 专著</div>
+      <div class="book-card">
+        <span class="book-icon">📘</span>
+        <div>
+          <strong>《智能计算》</strong><br>
+          朱世强、万志国 著<br>
+          <span style="color:var(--muted);font-size:0.88rem;">浙江大学出版社，2022 年 11 月 · ISBN: 978-7-308-22904-3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Papers -->
+    <div style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.8rem;">▸ 学术论文</div>
+
+    <!-- Filter buttons -->
+    <div class="pub-filter">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="ccf-a">CCF A 类</button>
+      <button class="filter-btn" data-filter="conf">顶级会议</button>
+      <button class="filter-btn" data-filter="journal">期刊论文</button>
+    </div>
+
+    <ol class="pub-list" id="pubList">
+
+      <li class="pub-item" data-type="ccf-a journal">
+        Y. Zhao, Z. Guan, <span class="pub-me">Zhiguo Wan</span> et al., "ClusterGuard: Secure Clustered Aggregation for Federated Learning with Robustness." <em>IEEE Transactions on Dependable and Secure Computing</em><span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2026</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        H. Gao, Q. Wu, B. Qin, F. Wu, Z. Ding, and <span class="pub-me">Zhiguo Wan</span>, "Spectra: Interval-Agnostic Vector Range Argument for Unstructured Range Assertions." <em>Eurocrypt</em><span class="pub-venue ccf-a">Eurocrypt · CCF A</span> <span class="pub-year">2026</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        R. Gao, H. Wang, <span class="pub-me">Zhiguo Wan</span>, and Y. Hu, "Distributed Vector Commitments and Their Applications." <em>USENIX Security</em><span class="pub-venue ccf-a">USENIX Sec. · CCF A</span> <span class="pub-year">2026</span>
+      </li>
+
+      <li class="pub-item" data-type="conf">
+        C. Chen, G. Yang, H. Zhou, H. Xiong, X. Ben, and <span class="pub-me">Zhiguo Wan</span>, "FusionMSM: A Collision-Free and Arithmetic-Optimized FPGA-based Accelerator for Multi-Scalar Multiplication." <em>CHES</em><span class="pub-venue">CHES</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        Z. Guan, Y. Zhao, <span class="pub-me">Zhiguo Wan</span>*, and J. Han, "OPSA: Efficient and Verifiable One-Pass Secure Aggregation with TEE for Federated Learning." <em>IEEE Transactions on Dependable and Secure Computing</em><span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        T. Zhaolu, <span class="pub-me">Zhiguo Wan</span>*, and H. Wang, "Post-Quantum Rollup: Falcon Signature Aggregation Based on SNARG with Enhanced Gates." <em>IEEE Transactions on Information Forensics and Security</em><span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        Z. Guan, Y. Zhao, <span class="pub-me">Zhiguo Wan</span>*, and W. Wang, "Input Integrity and Authentic Results: Towards Trustworthy Aggregation in Federated Learning." <em>IEEE INFOCOM</em><span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        L. Yang, X. Dong, <span class="pub-me">Zhiguo Wan</span>, et al., "AsyncSC: An Asynchronous Sidechain for Multi-Domain Data Exchange in Internet of Things." <em>IEEE INFOCOM</em><span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        W. Li, Z. Zhang, Y. Guo, S. S. M. Chow, <span class="pub-me">Zhiguo Wan</span>, "Succinct Hash-Based Arbitrary-Range Proofs." <em>IEEE Transactions on Information Forensics and Security</em>, vol. 20, pp. 145–158.<span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="conf">
+        Z. Guan, Y. Zhao, L. Yang, <span class="pub-me">Zhiguo Wan</span>*, and J. Han, "Communication-efficient Verifiable and Oblivious Aggregation with Client Dropouts." <em>ICASSP</em><span class="pub-venue">ICASSP</span> <span class="pub-year">2025</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        R. Gao, <span class="pub-me">Zhiguo Wan</span>*, Y. Hu*, and H. Wang*, "A Succinct Range Proof for Polynomial-based Vector Commitment." <em>ACM CCS</em>, pp. 3125–3166.<span class="pub-venue ccf-a">ACM CCS · CCF A</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        Y. Hao, X. Chen, X. Lyu, et al., <span class="pub-me">Zhiguo Wan</span>, "Not One Less: Exploring Interplay between User Profiles and Items in Untargeted Attacks against Federated Recommendation." <em>ACM CCS</em>, pp. 2889–2903.<span class="pub-venue ccf-a">ACM CCS · CCF A</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        P. Zhao and <span class="pub-me">Zhiguo Wan</span>*, "Robust Nonparametric Regression under Poisoning Attack." <em>AAAI</em>, pp. 17007–17015.<span class="pub-venue ccf-a">AAAI · CCF A</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        P. Zhao, F. Yu, and <span class="pub-me">Zhiguo Wan</span>*, "A Huber Loss Minimization Approach to Byzantine Robust Federated Learning." <em>AAAI</em>, pp. 21806–21814.<span class="pub-venue ccf-a">AAAI · CCF A</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        T. Zhaolu, <span class="pub-me">Zhiguo Wan</span>*, and H. Wang*, "Division of Regulatory Power: Collaborative Regulation for Privacy-Preserving Blockchains." <em>IEEE Transactions on Information Forensics and Security</em>.<span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        A. Zhang, W. Jia, <span class="pub-me">Zhiguo Wan</span>, W. Hua, and Z. Zhao, "Virtual Lighting Environment and Real Human Fusion Based on Multiview Videos." <em>Information Fusion</em> (中科院一区, IF: 18.6).<span class="pub-venue">Information Fusion</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        S. Yuan, B. Cao, Y. Sun, <span class="pub-me">Zhiguo Wan</span>, and M. Peng, "Secure and Efficient Federated Learning through Layering and Sharding Blockchain." <em>IEEE Transactions on Network Science and Engineering</em> (IF: 6.6).<span class="pub-venue">TNSE</span> <span class="pub-year">2024</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Y. Zhou and K. Ren, "zk-AuthFeed: Protecting Data Feed to Smart Contracts with Authenticated Zero Knowledge Proof." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>, W. Liu, and H. Cui*, "HIBEChain: A Hierarchical Identity-based Blockchain System for Large-Scale IoT." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        W. Liu, <span class="pub-me">Zhiguo Wan</span>*, J. Shao, and Y. Yu, "HyperMaze: Towards Privacy-Preserving and Scalable Permissioned Blockchain." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        H. Cui, <span class="pub-me">Zhiguo Wan</span>*, R. Gao, and H. Wang, "Outsourced Privately Verifiable Proofs of Retrievability via Blockchain." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        H. Wang, <span class="pub-me">Zhiguo Wan</span>*, D. He, and J. Yu, "Synchronous Blockchain-Based Distributed Provable Data Possession with Forward-Security." <em>IEEE Transactions on Services Computing</em>.<span class="pub-venue ccf-a">TSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        X. Zheng, C. Tang, <span class="pub-me">Zhiguo Wan</span>, et al., "Multi-level Confidence Learning for Trustworthy Multimodal Classification." <em>AAAI</em>, vol. 37, no. 9.<span class="pub-venue ccf-a">AAAI · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        M. Yang, H. Wang, and <span class="pub-me">Zhiguo Wan</span>, "PUL-ABE: An Efficient and Quantum-resistant CP-ABE with Policy Update in Cloud Storage." <em>IEEE Transactions on Services Computing</em>.<span class="pub-venue ccf-a">TSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        J. Han, B. Cheng, <span class="pub-me">Zhiguo Wan</span>, and W. Lu, "Towards Hard Few-Shot Relation Classification." <em>IEEE Transactions on Knowledge and Data Engineering</em>.<span class="pub-venue ccf-a">TKDE · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        G. Gong, Z. Shen, et al., <span class="pub-me">Zhiguo Wan</span>, and J. Shu, "Optimal Rack-Coordinated Updates in Erasure-Coded Data Centers." <em>IEEE Transactions on Computers</em>.<span class="pub-venue ccf-a">TC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        D. Liu, Z. Yan, W. Ding, Y. Cai, Y. Chen, and <span class="pub-me">Zhiguo Wan</span>, "ESMAC: Efficient and Secure Multi-owner Access Control with TEE in Multi-level Data Processing." <em>IEEE Transactions on Dependable and Secure Computing</em>, vol. 20, no. 5.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>*, T. Zhang, W. Liu, M. Wang, and L. Zhu, "Decentralized Privacy-Preserving Fair Exchange Scheme for V2G Based on Blockchain." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2022</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        Z. Guan, <span class="pub-me">Zhiguo Wan</span>*, Y. Yang, Y. Zhou, and B. Huang, "BlockMaze: An Efficient Privacy-Preserving Account-Model Blockchain Based on zk-SNARKs." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2022</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        Y. Guo, <span class="pub-me">Zhiguo Wan</span>*, H. Cui, X. Cheng, and F. Dressler, "Vehicloak: A Blockchain-enabled Privacy-Preserving Payment Scheme for Location-Based Vehicular Services." <em>IEEE Transactions on Mobile Computing</em>, 22(11): 6830–6842.<span class="pub-venue ccf-a">TMC · CCF A</span> <span class="pub-year">2022</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        T. Li, Y. Fang, Y. Lu, J. Yang, Z. Jian, <span class="pub-me">Zhiguo Wan</span>, and Y. Li, "SmartVM: A Smart Contract Virtual Machine for Fast on-Chain DNN Computations." <em>IEEE Transactions on Parallel and Distributed Systems</em>.<span class="pub-venue ccf-a">TPDS · CCF A</span> <span class="pub-year">2022</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        Y. Yang, Z. Guan, <span class="pub-me">Zhiguo Wan</span>*, J. Weng, H. H. Pang and R. Deng, "PriScore: Blockchain-based Self-tallying Election System Supporting Score Voting." <em>IEEE Transactions on Information Forensics and Security</em>, vol. 16, pp. 4705–4720.<span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2021</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        H. Cui, <span class="pub-me">Zhiguo Wan</span>*, X. Wei, S. Nepal and X. Yi, "Pay as You Decrypt: Decryption Outsourcing for Functional Encryption Using Blockchain." <em>IEEE Transactions on Information Forensics and Security</em>, vol. 15.<span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2020</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Y. Zhou and K. Ren, "zk-AuthFeed: Protecting Data Feed to Smart Contracts with Authenticated Zero Knowledge Proof." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2023</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>* and Robert H. Deng, "VPSearch: Achieving Verifiability for Privacy-Preserving Multi-Keyword Search over Encrypted Cloud Data." <em>IEEE Transactions on Dependable and Secure Computing</em>.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2018</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        H. Cui, <span class="pub-me">Zhiguo Wan</span>, R. Deng, G. Wang, Y. Li, "Efficient and Expressive Keyword Search over Encrypted Data in the Cloud." <em>IEEE Transactions on Dependable and Secure Computing</em>, vol. 15, no. 3, pp. 409–422.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2018</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        Y. Jia, Y. Xiao, J. Yu, X. Cheng, Z. Liang and <span class="pub-me">Zhiguo Wan</span>, "A Novel Graph-based Mechanism for Identifying Traffic Vulnerabilities in Smart Home IoT." <em>IEEE INFOCOM</em>.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2018</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        H. Ma, R. Zhang, <span class="pub-me">Zhiguo Wan</span>, Y. Lu, and S. Lin, "Verifiable and Exculpable Outsourced Attribute-Based Encryption for Access Control in Cloud Computing." <em>IEEE Transactions on Dependable and Secure Computing</em>, vol. 14, no. 6, pp. 679–692.<span class="pub-venue ccf-a">TDSC · CCF A</span> <span class="pub-year">2017</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Guilin Wang, Yanjiang Yang, and Shenxing Shi, "SKM: Scalable Key Management for Advanced Metering Infrastructure in Smart Grids." <em>IEEE Transactions on Industrial Electronics</em>, vol. 61, no. 12, pp. 7055–7066.<span class="pub-venue">TIE</span> <span class="pub-year">2014</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        P.-J. Wan, Z. Wang, L. Wang, <span class="pub-me">Zhiguo Wan</span>, S. Ji, "From Least Interference-Cost Paths to Maximum (Concurrent) Multiflow in MC-MR Wireless Networks." <em>IEEE INFOCOM</em>, pp. 334–342.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2014</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        P.-J. Wan, <span class="pub-me">Zhiguo Wan</span>, Z. Wang, et al., "Stability Analyses of Static Greedy Link Schedulings in MC-MR Wireless Networks." <em>IEEE INFOCOM</em>.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2013</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        K. Xing, <span class="pub-me">Zhiguo Wan</span>, P. Hu, H. Zhu, et al., "Mutual Privacy-Preserving Regression Modeling in Participatory Sensing." <em>IEEE INFOCOM</em>.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2013</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        T. Jung, X.-Y. Li, <span class="pub-me">Zhiguo Wan</span>, M. Wan, "Privacy Preserving Cloud Data Access With Multi-Authorities." <em>IEEE INFOCOM</em>.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2013</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        P.-J. Wan, X. Jia, G.-J. Dai, H. Du, <span class="pub-me">Zhiguo Wan</span>, O. Frieder, "Scalable Algorithms for Wireless Link Schedulings in Multi-Channel Multi-Radio Wireless Networks." <em>IEEE INFOCOM</em>.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2013</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a conf">
+        <span class="pub-me">Zhiguo Wan</span>, K. Xing, Y. Liu, "Priv-Code: Preserving Privacy Against Traffic Analysis through Network Coding for Multihop Wireless Networks." <em>IEEE INFOCOM</em>, pp. 73–81.<span class="pub-venue ccf-a">INFOCOM · CCF A</span> <span class="pub-year">2012</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Kui Ren, and Ming Gu, "USOR: An Unobservable Secure On-Demand Routing Protocol for Ad hoc Networks." <em>IEEE Transactions on Wireless Communications</em>, vol. 11, no. 5, pp. 1922–1932.<span class="pub-venue">TWC</span> <span class="pub-year">2012</span>
+      </li>
+
+      <li class="pub-item" data-type="ccf-a journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Jun'e Liu, and Robert Deng, "HASBE: A Hierarchical Attribute-Based Solution for Flexible and Scalable Access Control in Cloud Computing." <em>IEEE Transactions on Information Forensics and Security</em>, vol. 7, no. 2, pp. 743–754.<span class="pub-venue ccf-a">TIFS · CCF A</span> <span class="pub-year">2012</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Kui Ren, Bo Zhu, Bart Preneel, Ming Gu, "Anonymous User Communication for Privacy Protection in Wireless Metropolitan Mesh Networks." <em>IEEE Transactions on Vehicular Technology</em>, vol. 59, no. 2, pp. 519–532.<span class="pub-venue">TVT</span> <span class="pub-year">2010</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Robert H. Deng, Feng Bao, Bart Preneel, "nPAKE+: A Tree-Based Group Password-Authenticated Key Exchange Protocol." <em>Journal of Computer Science Technology</em>, vol. 24, no. 1, pp. 138–151.<span class="pub-venue">JCST</span> <span class="pub-year">2009</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Robert H. Deng, Feng Bao, Akkihebbal L. Ananda, "Access Control Protocols with Two-layer Architecture for Wireless Networks." <em>Computer Networks</em>, vol. 51, no. 3, pp. 655–670.<span class="pub-venue">ComNet</span> <span class="pub-year">2007</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        <span class="pub-me">Zhiguo Wan</span>*, Feng Bao, Robert H. Deng, Akkihebbal L. Ananda, "Security Analysis on a Conference Scheme for Mobile Communications." <em>IEEE Transactions on Wireless Communications</em>, vol. 5, no. 6, pp. 1238–1240.<span class="pub-venue">TWC</span> <span class="pub-year">2006</span>
+      </li>
+
+      <li class="pub-item" data-type="journal">
+        K. Ren, T. Li, <span class="pub-me">Zhiguo Wan</span>, F. Bao, R. H. Deng and K. Kim, "Highly Reliable Trust Establishment Scheme in Mobile Ad hoc Networks." <em>Computer Networks</em>, vol. 45, no. 6, pp. 687–699.<span class="pub-venue">ComNet</span> <span class="pub-year">2004</span>
+      </li>
+
+    </ol>
+
+    <p style="font-size:0.85rem;color:var(--muted);margin-top:1rem;">
+      * 通讯作者。完整论文列表详见 <a href="https://scholar.google.com/citations?user=8D7Vh20AAAAJ" target="_blank">Google Scholar</a>。
+    </p>
+  </section>
+
+</div><!-- /.page-wrap -->
+
+<!-- ==================== Footer ==================== -->
+<footer>
+  <div>
+    © 万志国 · 杭州师范大学数学学院 · 更新于 2026 年 1 月
+    <span style="margin:0 0.5rem;">·</span>
+    <a href="https://github.com/mavroudisv/plain-academic" target="_blank">Plain Academic</a>
+  </div>
+  <div class="visitor-stats">
+    本页访问人次：<span id="page_pv">—</span> &nbsp;|&nbsp; 访问人数：<span id="page_uv">—</span>
+  </div>
+</footer>
 
 <script defer src="//webviso.yestool.org/js/index.min.js"></script>
-Updated Jan. 16, 2025<p>
 
-本页访问人次:<span id="page_pv"></span>本页访问人数:<span id="page_uv"></span>
+<script>
+  // ===== Mobile nav toggle =====
+  document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
 
+  // ===== Close nav on link click (mobile) =====
+  document.querySelectorAll('#navLinks a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // ===== Publication filter =====
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-item').forEach(function(item) {
+        if (filter === 'all') {
+          item.style.display = '';
+        } else {
+          var types = item.dataset.type || '';
+          item.style.display = types.includes(filter) ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
 </html>
